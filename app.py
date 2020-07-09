@@ -52,7 +52,7 @@ def real_plot():
 def update_data():
   one_day = 86400
 
-  API_KEY = environ.get("WEATHER_API_KEY") 
+  API_KEY = "dac73cd4aa6d251af51224cd3e8983c9"
   CITY = "Istanbul"
   date_time = []
   wind_speed = []
@@ -90,7 +90,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 
 
-API_KEY = environ.get("WEATHER_API_KEY")
+API_KEY = "dac73cd4aa6d251af51224cd3e8983c9" #environ.get("WEATHER_API_KEY")
 CITY = "Istanbul"
 url = f"http://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}"
 print(url)
@@ -223,8 +223,8 @@ def predict():
     plt.tight_layout()
     plt.xlabel("")
     plt.ylabel("")
-    plt.savefig("static/images/pieplot.png")
-    filen = "images/pieplot.png"
+    plt.savefig("static/pieplot.png")
+    filen = "pieplot.png"
     time.sleep(1)
     return render_template('index.html',val = data,url  = url_for('static',filename =filen),avg = round(avg_power),t_power = round(total_power))
 
@@ -233,4 +233,4 @@ def aboutus():
     return render_template('aboutus.html')
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
