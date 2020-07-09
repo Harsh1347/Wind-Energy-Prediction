@@ -225,7 +225,7 @@ def predict():
     plt.ylabel("")
     plt.savefig("static/images/pieplot.png")
     filen = "images/pieplot.png"
-    time.sleep(1)
+    #time.sleep(1)
     return render_template('index.html',val = data,url  = url_for('static',filename =filen),avg = round(avg_power),t_power = round(total_power))
 
 @app.route('/aboutus')
