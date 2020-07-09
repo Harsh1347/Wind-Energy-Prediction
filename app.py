@@ -165,6 +165,8 @@ def after_request(response):
 
 @app.route('/home',methods = ['GET','POST'])
 def index():
+    if request.method == 'GET':
+      return redirect(url_for('index'))
     data['pred'] = 0
     return render_template('index.html',val = data,avg = round(avg_power),t_power = round(total_power))
 
@@ -202,31 +204,34 @@ def predict():
     ex = [int(x) for x in request.form.values()]
     
     pie_data = list()
-    if ex[0]-round(total_power) < 0 :
-        pie_data = [0,round(total_power)]
-    else:
-        v = ex[0]-round(total_power)
-        pie_data = [v,round(total_power)]
-    
-    pie_label = ["Remaining","Demand Fulfilled"]
-    data['pred'] = 1
- 
-    explode = [0,0.1]
-    colors = ['#fc4f30','#56bd6e']
-    plt.clf()
-    plt.pie(pie_data,labels=pie_label,explode=explode,
-        shadow=True,colors=colors,
-        wedgeprops={'edgecolor':'black'},
-        autopct=make_autopct(pie_data)
-        )
-    plt.title(f"Demand Supply Ratio \n Total Demand : {ex[0]}")
-    plt.tight_layout()
-    plt.xlabel("")
-    plt.ylabel("")
-    plt.savefig("static/images/pieplot.png")
-    filen = "images/pieplot.png"
+    try:
+      if ex[0]-round(total_power) < 0 :
+          pie_data = [0,round(total_power)]
+      else:
+          v = ex[0]-round(total_power)
+          pie_data = [v,round(total_power)]
+
+      pie_label = ["Remaining","Demand Fulfilled"]
+      data['pred'] = 1
+
+      explode = [0,0.1]
+      colors = ['#fc4f30','#56bd6e']
+      plt.clf()
+      plt.pie(pie_data,labels=pie_label,explode=explode,
+          shadow=True,colors=colors,
+          wedgeprops={'edgecolor':'black'},
+          autopct=make_autopct(pie_data)
+          )
+      plt.title(f"Demand Supply Ratio \n Total Demand : {ex[0]}")
+      plt.tight_layout()
+      plt.xlabel("")
+      plt.ylabel("")
+      plt.savefig("static/images/pieplot.png")
+      filen = "static/images/pieplot.png"
+    except:
+      filen = "Please Enter a Valid Number"
     #time.sleep(1)
-    return render_template('index.html',val = data,url  = url_for('static',filename =filen),avg = round(avg_power),t_power = round(total_power))
+    return render_template('index.html',val = data,url  = filen,avg = round(avg_power),t_power = round(total_power))
 
 @app.route('/aboutus')
 def aboutus():
