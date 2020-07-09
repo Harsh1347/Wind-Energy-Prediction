@@ -165,8 +165,6 @@ def after_request(response):
 
 @app.route('/home',methods = ['GET','POST'])
 def index():
-    if request.method == 'GET':
-      return redirect(url_for('index'))
     data['pred'] = 0
     return render_template('index.html',val = data,avg = round(avg_power),t_power = round(total_power))
 
