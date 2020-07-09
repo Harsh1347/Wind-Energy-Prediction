@@ -223,8 +223,8 @@ def predict():
     plt.tight_layout()
     plt.xlabel("")
     plt.ylabel("")
-    plt.savefig("static/pieplot.png")
-    filen = "pieplot.png"
+    plt.savefig("static/images/pieplot.png")
+    filen = "images/pieplot.png"
     time.sleep(1)
     return render_template('index.html',val = data,url  = url_for('static',filename =filen),avg = round(avg_power),t_power = round(total_power))
 

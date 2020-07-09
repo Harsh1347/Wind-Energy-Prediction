@@ -11,7 +11,7 @@
 <div class="container">
     <div class = "row" >
         <div class="col-md">
-            <img src="https://raw.githubusercontent.com/Harsh1347/Flask/master/images/chart2.png" >
+            <img src="{{ url_for('static',filename = 'images/chart2.png')}}" >
         </div>
     </div>
     <br>
@@ -56,28 +56,28 @@
     <br>
     <div class = "row" >
       <div class="col-md">
-          <img src="https://raw.githubusercontent.com/Harsh1347/Flask/master/images/prev5speed.png" >
+          <img src="{{ url_for('static',filename = 'images/prev5speed.png')}}" >
       </div>
     </div>
     <br>
     <div class = "row" >
       <div class="col-md">
-          <img src="https://raw.githubusercontent.com/Harsh1347/Flask/master/images/prev5dir.png" >
+          <img src="{{ url_for('static',filename = 'images/prev5dir.png') }}" >
       </div>
     </div>
     <br>
     <div class="row" style="padding: 10px;margin-left: 10px;">
         <div class="col-md">
-            <img src="https://raw.githubusercontent.com/Harsh1347/Flask/master/images/monthvspower.png"></img>
+            <img src="{{ url_for('static',filename = 'images/monthvspower.png')}}"></img>
         </div>
         <div class="col-md">
-            <img src="https://raw.githubusercontent.com/Harsh1347/Flask/master/images/windvspower.png"></img>
+            <img src="{{ url_for('static',filename = 'images/windvspower.png')}}"></img>
         </div>
     </div>
     <br>
     <div class="row">
         <div class="col-sm">
-            <img src = "https://raw.githubusercontent.com/Harsh1347/Flask/master/images/wind_dirvspower.png"></img>
+            <img src = "{{ url_for('static',filename = 'images/wind_dirvspower.png')}}"></img>
         </div>
     </div>
 </div>
