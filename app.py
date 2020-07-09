@@ -52,7 +52,7 @@ def real_plot():
 def update_data():
   one_day = 86400
 
-  API_KEY = environ.get("WEATHER_API_KEY") #"dac73cd4aa6d251af51224cd3e8983c9"
+  API_KEY = environ.get("WEATHER_API_KEY") 
   CITY = "Istanbul"
   date_time = []
   wind_speed = []
