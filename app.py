@@ -52,7 +52,7 @@ def real_plot():
 def update_data():
   one_day = 86400
 
-  API_KEY = environ.get("WEATHER_API_KEY")#"dac73cd4aa6d251af51224cd3e8983c9"
+  API_KEY = environ.get("WEATHER_API_KEY")
   CITY = "Istanbul"
   date_time = []
   wind_speed = []
@@ -134,7 +134,7 @@ plt.xlabel("Hours")
 plt.ylabel("Power in KW")
 plt.ylim(0)
 plt.xlim((0,72))
-plt.title("Power For Next 72 Hours")
+#plt.title("Power For Next 72 Hours")
 plt.tight_layout()
 plt.savefig('static/images/chart2.png')
 
@@ -200,38 +200,29 @@ def predict():
     if request.method == "GET":
         return redirect(url_for("index"))
     
-    if request.form.values().strip() == "":
-      filen = "Please Enter a Valid Number"
-    
+    ex = [int(x) for x in request.form.values()]
+    pie_data = list()
+    if ex[0]-round(total_power) < 0 :
+        pie_data = [0,round(total_power)]
     else:
-    
-      ex = [int(x) for x in request.form.values()]
-
-      pie_data = list()
-
-      if ex[0]-round(total_power) < 0 :
-          pie_data = [0,round(total_power)]
-      else:
-          v = ex[0]-round(total_power)
-          pie_data = [v,round(total_power)]
-
-      pie_label = ["Remaining","Demand Fulfilled"]
-      data['pred'] = 1
-
-      explode = [0,0.1]
-      colors = ['#fc4f30','#56bd6e']
-      plt.clf()
-      plt.pie(pie_data,labels=pie_label,explode=explode,
-          shadow=True,colors=colors,
-          wedgeprops={'edgecolor':'black'},
-          autopct=make_autopct(pie_data)
-          )
-      plt.title(f"Demand Supply Ratio \n Total Demand : {ex[0]}")
-      plt.tight_layout()
-      plt.xlabel("")
-      plt.ylabel("")
-      plt.savefig("static/images/pieplot.png")
-      filen = "static/images/pieplot.png"
+        v = ex[0]-round(total_power)
+        pie_data = [v,round(total_power)]
+    pie_label = ["Remaining","Demand Fulfilled"]
+    data['pred'] = 1
+    explode = [0,0.1]
+    colors = ['#fc4f30','#56bd6e']
+    plt.clf()
+    plt.pie(pie_data,labels=pie_label,explode=explode,
+        shadow=True,colors=colors,
+        wedgeprops={'edgecolor':'black'},
+        autopct=make_autopct(pie_data)
+        )
+    plt.title(f"Demand Supply Ratio \n Total Demand : {ex[0]}")
+    plt.tight_layout()
+    plt.xlabel("")
+    plt.ylabel("")
+    plt.savefig("static/images/pieplot.png")
+    filen = "static/images/pieplot.png"
     
     
     #time.sleep(1)
