@@ -199,10 +199,16 @@ def stats():
 def predict():
     if request.method == "GET":
         return redirect(url_for("index"))
-    ex = [int(x) for x in request.form.values()]
     
-    pie_data = list()
-    try:
+    if request.form.values().strip() == "":
+      filen = "Please Enter a Valid Number"
+    
+    else:
+    
+      ex = [int(x) for x in request.form.values()]
+
+      pie_data = list()
+
       if ex[0]-round(total_power) < 0 :
           pie_data = [0,round(total_power)]
       else:
@@ -226,8 +232,8 @@ def predict():
       plt.ylabel("")
       plt.savefig("static/images/pieplot.png")
       filen = "static/images/pieplot.png"
-    except:
-      filen = "Please Enter a Valid Number"
+    
+    
     #time.sleep(1)
     return render_template('index.html',val = data,url  = filen,avg = round(avg_power),t_power = round(total_power))
 
