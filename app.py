@@ -165,6 +165,25 @@ def after_request(response):
 
 @app.route('/home',methods = ['GET','POST'])
 def index():
+    API_KEY = environ.get("WEATHER_API_KEY")
+    CITY = "Istanbul"
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}"
+    print(url)
+
+    hist = pd.read_csv("static/historical.csv")
+    if int(hist[-1:]["date_time"].values[0][:2]) != int((datetime.now().day)-1):
+        update_data()
+    plt.style.use("fivethirtyeight")
+
+    resp = requests.get(url)
+    resp = resp.json()
+    data = {}
+    data['date'] = datetime.utcfromtimestamp(resp['dt']).strftime('%m-%d-%Y %H:%M')
+    data['windspeed'] = resp['wind']['speed']
+    data['winddir'] = resp['wind']['deg']
+    data['temp'] = round(resp['main']['temp']-273.15,3)
+    data['mintemp'] = round(resp['main']['temp_min']-273.15,3)
+    data['maxtemp'] = round(resp['main']['temp_max']-273.15,3)
     data['pred'] = 0
     return render_template('index.html',val = data,avg = round(avg_power),t_power = round(total_power))
 
