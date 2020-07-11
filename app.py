@@ -165,6 +165,7 @@ def after_request(response):
 
 @app.route('/home',methods = ['GET','POST'])
 def index():
+    update_data()
     API_KEY = environ.get("WEATHER_API_KEY")
     CITY = "Istanbul"
     url = f"http://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}"
@@ -173,7 +174,42 @@ def index():
     hist = pd.read_csv("static/historical.csv")
     if int(hist[-1:]["date_time"].values[0][:2]) != int((datetime.now().day)-1):
         update_data()
+    
+    pred = real_plot()
+
+    pred = [random.randint(5,10) if x < 0 else x for x in pred ] 
+    pred = pred[::6]
+    total_power = sum(pred)
+    avg_power = total_power/len(pred)
+    chart_data = pd.DataFrame(data = {"x":[x for x in range(1,len(pred)+1)],"y":pred})
+
+    plt.plot(chart_data['x'],chart_data['y'])
+    plt.xlabel("Hours")
+    plt.ylabel("Power in KW")
+    plt.ylim(0)
+    plt.xlim((0,72))
+    plt.tight_layout()
+    plt.savefig('static/images/chart.png')
+    
+    
     plt.style.use("fivethirtyeight")
+    plt.figure(figsize = (11,4))
+    plt.plot(hist['date_time'][-120::2],hist['wind_speed'][-120::2])
+    plt.xlabel("Date-Time")
+    plt.ylabel("Wind Speed (m/s)")
+    plt.xticks(rotation = 90,fontsize=6)
+    plt.title("Wind Speed for the last 5 Days")
+    plt.tight_layout()
+    plt.savefig('static/images/prev5speed.png')
+    
+    plt.figure(figsize = (11,4))
+    plt.plot(hist['date_time'][-120::2],hist['wind_speed'][-120::2])
+    plt.xlabel("Date-Time")
+    plt.ylabel("Wind Speed (m/s)")
+    plt.xticks(rotation = 90,fontsize=6)
+    plt.title("Wind Speed for the last 5 Days")
+    plt.tight_layout()
+    plt.savefig('static/images/prev5speed.png')
 
     resp = requests.get(url)
     resp = resp.json()
@@ -193,6 +229,9 @@ def about():
 
 @app.route('/',methods = ['POST','GET'])
 def login():
+    hist = pd.read_csv("static/historical.csv")
+    if int(hist[-1:]["date_time"].values[0][:2]) != int((datetime.now().day)-1):
+        update_data()
     error = ""
     if request.method == 'POST':
         val = [x for x in request.form.values()]
@@ -212,6 +251,9 @@ def register():
 
 @app.route('/stats')
 def stats():
+    hist = pd.read_csv("static/historical.csv")
+    if int(hist[-1:]["date_time"].values[0][:2]) != int((datetime.now().day)-1):
+        update_data()
     return render_template("stats.html",avg = round(avg_power),t_power = round(total_power),pred = [(i+1,pred[i]) for i in range(len(pred))])
 
 @app.route('/predict',methods = ['POST','GET'])
