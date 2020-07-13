@@ -57,19 +57,20 @@ def update_data():
   date_time = []
   wind_speed = []
   wind_dir = []
-
-  for i in range(5,0,-1):
-      dt = datetime.utcnow().date()
-      ts =int(time.mktime(dt.timetuple()))
-      url = f"http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=41.0082&lon=28.9784&dt={ts-((i-1)*one_day)}&appid={API_KEY}"
-      print(url)
-      resp = requests.get(url)
-      resp = resp.json()
-      #print(resp['hourly'])
-      for j in resp['hourly']:
-          date_time.append(j['dt'])
-          wind_speed.append(j["wind_speed"])
-          wind_dir.append(j["wind_deg"])
+  try:
+    for i in range(5,0,-1):
+        dt = datetime.utcnow().date()
+        ts =int(time.mktime(dt.timetuple()))
+        url = f"http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=41.0082&lon=28.9784&dt={ts-((i-1)*one_day)}&appid={API_KEY}"
+        print(url)
+        resp = requests.get(url)
+        resp = resp.json()
+        #print(resp['hourly'])
+        for j in resp['hourly']:
+            date_time.append(j['dt'])
+            wind_speed.append(j["wind_speed"])
+            wind_dir.append(j["wind_deg"])
+  except:pass
   date_time = [datetime.utcfromtimestamp(x).strftime('%d-%m-%Y %H:%M') for x in date_time]
   data = pd.DataFrame({"date_time":date_time,"wind_speed":wind_speed,"wind_direction":wind_dir})
   data.to_csv("static/historical.csv",header=False,mode='a',index=False)
