@@ -203,13 +203,13 @@ def index():
     plt.savefig('static/images/prev5speed.png')
     
     plt.figure(figsize = (11,4))
-    plt.plot(hist['date_time'][-120::2],hist['wind_speed'][-120::2])
+    plt.plot(hist['date_time'][-120::2],hist['wind_direction'][-120::2])
     plt.xlabel("Date-Time")
-    plt.ylabel("Wind Speed (m/s)")
+    plt.ylabel("Wind Direction in Degrees")
+    plt.title("Wind Direction for the last 5 Days")
     plt.xticks(rotation = 90,fontsize=6)
-    plt.title("Wind Speed for the last 5 Days")
     plt.tight_layout()
-    plt.savefig('static/images/prev5speed.png')
+    plt.savefig('static/images/prev5dir.png')
 
     resp = requests.get(url)
     resp = resp.json()
