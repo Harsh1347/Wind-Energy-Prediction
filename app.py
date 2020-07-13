@@ -77,6 +77,10 @@ def update_data():
   print(data.shape)
   data = pd.read_csv("static/historical.csv")
   data.drop_duplicates(inplace = True)
+  data["date_time"] = pd.to_datetime(data['date_time'], format='%d-%m-%Y %H:%M')
+  #print(type(data.date_time[0]))
+  data.sort_values(by=['date_time'], inplace=True)
+  data["date_time"] = data['date_time'].dt.strftime('%d-%m-%Y %H:%M')
   data.to_csv("static/historical.csv",index = False)
 
 def make_autopct(values):
