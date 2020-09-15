@@ -1,4 +1,4 @@
-Made by ***Team YUMIT*** ([Aryaman](https://github.com/aryu99) , [Jayant](https://github.com/Vjayant7) ,[Neil](https://github.com/NeilS99) and [Harsh](https://github.com/Harsh1347) ), for a better, green future. :deciduous_tree: 
+Made by ***Team YUMIT*** ([Aryaman](https://github.com/aryu99), [Jayant](https://github.com/Vjayant7), [Neil](https://github.com/NeilS99) and [Harsh](https://github.com/Harsh1347) ), for a better, green future. :deciduous_tree: 
 
 **To check out our web application, click on this [link](https://mighty-mit.herokuapp.com/)** (Kindly wait for a minute or so for the application to load).
 
