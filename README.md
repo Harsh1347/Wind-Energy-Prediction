@@ -1,12 +1,5 @@
 Made by ***Team YUMIT*** ([@aryu99](https://github.com/aryu99), [@Vjayant7](https://github.com/Vjayant7), [@NeilS99](https://github.com/NeilS99) and [@Harsh1347](https://github.com/Harsh1347) ), for a better, green future. :deciduous_tree: 
 
-
-**To check out our web application, click on this [link](https://mighty-mit.herokuapp.com/)** (Kindly wait for a minute or so for the application to load).
-
-*Username - admin*
-
-*Password - admin*
-
 - **[Click here](https://drive.google.com/file/d/1Ha34xwBTvlzedlPrXwR0quc9WN2CPsG5/view?usp=sharing) to see the documentation of our project.**
 
 - **[Click here](https://drive.google.com/file/d/1kY-niv9kU3Jquc3cabrvWrytKa1_y7fi/view) to check out our video presentation for the project. For web application demo, please skip to 2:36 in the video.**
